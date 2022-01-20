@@ -1,0 +1,80 @@
+#%RAML 1.0
+
+types:
+  Account: !include /DataTypes/AccountDataType.raml
+title: Accounts API
+
+/accounts:
+  get:
+    displayName: Get All Accounts
+    description: get all accounts based on given query parameter
+    responses:
+      200:
+        description: Success
+        body:
+          application/json:
+            type: Account[]
+            examples:
+              output: !include examples/AccountExample.raml
+      400:
+            body:
+                  application/json:
+                        example:
+                          message: Error fetching records from database    
+    headers:
+      Requester-ID:
+        displayName: Requester ID
+        type: string
+        required: true
+        default: R-ID-MSD7
+    queryParameters:
+      type:
+        displayName: Account Type
+        required: true
+        type: string
+        enum:
+          - Personal
+          - Business
+      name:
+        displayName: Name
+        description: The name query parameter value is used to filter and return all account records for a particular account owner
+        required: false
+        type: string
+      
+      country:
+        displayName: Country
+        description: The country query parameter value is used to filter and return records matching the account owner's country of residence
+        required: false
+        type: string
+
+  
+  post:
+    displayName: Add account
+    description: Creates/Adds a new Account to the system based on a given array of Account objects
+    headers:
+      Requester-ID:
+        displayName: Requester ID
+        type: string
+        required: true
+        default: R-ID-MSD7
+    body:
+      application/json:
+        description:  Payload should be an array of Account objects with all fields present for each Account object.
+        type: Account[]
+        examples:
+          output: !include examples/AccountWithNoIdExample.raml
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              message:Acconts created (but not really)
+      400:
+        body:
+          application/json:
+            example:
+              message: Error creating accounts. Please check the JSON object and make sure it's valid.
+
+      
+
+    

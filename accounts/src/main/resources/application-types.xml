@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="accounts" format="json">
+      <types:shape format="weave" example="examples/examplejson.json"><![CDATA[%dw 2.0
+
+type accounts = Array<{|  id: String,   firstName: String,   lastName: String,   address: String,   postal: String,   country: String,   miles: Number {"typeId": "int"},   creationDate: String,   "type": String|}> {"example": "[{\\\"id\\\":\\\"ABC-1234\\\",\\\"firstName\\\":\\\"John\\\",\\\"lastName\\\":\\\"Doe\\\",\\\"address\\\":\\\"123 Main St., Dallas TX\\\",\\\"postal\\\":\\\"77777\\\",\\\"country\\\":\\\"US\\\",\\\"miles\\\":999,\\\"creationDate\\\":\\\"2019-08-21T04:34:41.098Z\\\",\\\"type\\\":\\\"Personal\\\"},{\\\"id\\\":\\\"XYZ-8989\\\",\\\"firstName\\\":\\\"Jane\\\",\\\"lastName\\\":\\\"Doe\\\",\\\"address\\\":\\\"10 Downing St., San Francisco CA\\\",\\\"postal\\\":\\\"89897\\\",\\\"country\\\":\\\"US\\\",\\\"miles\\\":101,\\\"creationDate\\\":\\\"2018-12-09T21:53:12.127Z\\\",\\\"type\\\":\\\"Business\\\"}]"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="id" format="java">
+      <types:shape format="raml"><![CDATA[#%RAML 1.0 DataType
+type: string]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#19f2802f-34f0-4c1d-af7e-fecd09c35839">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="accounts"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#bb6c5e66-0b72-4f4f-a6ed-ccee89346b96">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="accounts"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#38b1baf8-8d81-4ebf-bd78-bd8e49658a7c">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="accounts"/>
+          <types:attributes type="accounts"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#7e0cc17a-c599-4e03-a77d-48233274f27a">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="accounts"/>
+          <types:attributes type="accounts"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#be7aa626-e5c1-4d94-b8cb-283643cc40a7">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="accounts"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>
